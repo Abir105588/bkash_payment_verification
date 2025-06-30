@@ -1,0 +1,153 @@
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>অর্ডার ফর্ম</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    .payment-info { display: none; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>কল গ্রুপ অর্ডার ফর্ম</h2>
+
+<form id="orderForm">
+  <label>প্রোডাক্টের নাম: <strong>কল গ্রুপ</strong></label>
+
+  <label>প্রোডাক্টের বর্ণনা: <strong>কল গ্রুপ</strong></label>
+
+  <label>কন্ডিটি (১-১২ পিস):</label>
+  <select id="quantity" onchange="updatePrice()">
+    <option value="1">১ পিস</option>
+    <option value="2">২ পিস</option>
+    <option value="3">৩ পিস</option>
+    <option value="4">৪ পিস</option>
+    <option value="5">৫ পিস</option>
+    <option value="6">৬ পিস</option>
+    <option value="7">৭ পিস</option>
+    <option value="8">৮ পিস</option>
+    <option value="9">৯ পিস</option>
+    <option value="10">১০ পিস</option>
+    <option value="11">১১ পিস</option>
+    <option value="12">১২ পিস</option>
+  </select>
+
+  <label>মোট মূল্য (৳):</label>
+<input type="text" id="price" readonly>
+
+  <label>পেমেন্ট পদ্ধতি:</label>
+  <select id="paymentMethod" onchange="showPaymentInfo()">
+    <option value="">সিলেক্ট করুন</option>
+    <option value="bkash">বিকাশ</option>
+    <option value="nagad">নগদ</option>
+    <option value="rocket">রকেট</option>
+  </select>
+
+  <div id="bkash" class="payment-info">
+    <p>পার্সোনাল বিকাশ: 01977281424</p>
+  </div>
+  <div id="nagad" class="payment-info">
+    <p>পার্সোনাল নগদ: 01915347910</p>
+  </div>
+  <div id="rocket" class="payment-info">
+    <p>পার্সোনাল রকেট: 01915347910</p>
+  </div>
+
+  <label>ট্রানজেকশন নাম্বার:</label>
+  <input type="text" required>
+
+  <label>হোয়াটসঅ্যাপ নাম্বার/লিংক:</label>
+  <input type="text" required>
+
+  <br><br>
+  <button type="submit">✅ অর্ডার সাবমিট</button>
+</form>
+
+<script>
+  const priceList = {
+    1: 210, 2: 410, 3: 510, 4: 710, 5: 910,
+    6: 1010, 7: 1210, 8: 1410, 9: 1510,
+    10: 1710, 11: 2910, 12: 2020
+  };
+
+  function updatePrice() {
+    const qty = document.getElementById('quantity').value;
+    document.getElementById('price').value = priceList[qty];
+  }
+
+  function showPaymentInfo() {
+    const methods = ['bkash', 'nagad', 'rocket'];
+    methods.forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
+একদম ঠিক আছে! নিচে কোডে WhatsApp মেসেজ পাঠানোর ফাংশন যুক্ত করে দিলাম। অর্ডার সাবমিট বাটনে ক্লিক করলে ইউজারের ইনপুট নিয়ে WhatsApp-এ অটো মেসেজ তৈরি হবে:
+
+```html
+<!-- সব আগের কোড ঠিক রেখে শুধু নিচের অংশটা আপডেট করো -->
+
+<!-- ট্রানজেকশন নাম্বার ও হোয়াটসঅ্যাপ ইনপুট ফিল্ডে আইডি দাও -->
+<label>ট্রানজেকশন নাম্বার:</label>
+<input type="text" id="trxid" required>
+
+<label>হোয়াটসঅ্যাপ নাম্বার/লিংক:</label>
+<input type="text" id="whatsappNumber" required>
+
+<br><br>
+<button type="button" onclick="submitOrder()">✅ অর্ডার সাবমিট</button>
+
+<script>
+  const priceList = {
+    1: 210, 2: 410, 3: 510, 4: 710, 5: 910,
+    6: 1010, 7: 1210, 8: 1410, 9: 1510,
+    10: 1710, 11: 2910, 12: 2020
+  };
+
+  function updatePrice() {
+    const qty = document.getElementById('quantity').value;
+    document.getElementById('price').value = priceList[qty];
+  }
+
+  function showPaymentInfo() {
+    const methods = ['bkash', 'nagad', 'rocket'];
+    methods.forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
+
+    const selected = document.getElementById('paymentMethod').value;
+    if (selected) {
+      document.getElementById(selected).style.display = 'block';
+    }
+  }
+
+  function submitOrder() {
+    const qty = document.getElementById('quantity').value;
+    const price = priceList[qty];
+const method = document.getElementById('paymentMethod').value;
+    const trx = document.getElementById('trxid').value;
+    const wp = document.getElementById('whatsappNumber').value;
+
+    const paymentText = {
+      bkash: 'বিকাশ (01977281424)',
+      nagad: 'নগদ (01915347910)',
+      rocket: 'রকেট (01915347910)'
+    };
+
+    const message =
+      `অর্ডার ডিটেইলস:\n\n` +
+      `প্রোডাক্ট: কল গ্রুপ\n` +
+      `পরিমাণ: qty পিস` +
+      `মূল্য:{price} টাকা\n` +
+      `পেমেন্ট মেথড: paymentText[method] || 'নির্বাচন হয়নি'` +
+      `ট্রানজেকশন নাম্বার:{trx}\n` +
+      `কাস্টমার হোয়াটসঅ্যাপ: wp`;
+
+    const whatsappURL = `https://wa.me/8801977281424?text={encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+  }
+</script>
+```
